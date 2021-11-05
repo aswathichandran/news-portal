@@ -1,0 +1,41 @@
+<div class="a-articles-list-wrp g-p-20">
+    <div class="a-articles">
+        <mat-card class="example-card g-p-20 g-mb-30" *ngFor="let article of readLaters">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="a-thumbnaol-wrp">
+                        <img [src]="article.thumbnail_standard" class="g-w-100per" alt="Photo of a Shiba Inu">
+                    </div>
+                </div>
+                <div class="col-sm-8">
+                    <mat-card-header class="g-justify-space-between align-items-center">
+                        <mat-card-title class="align-self-center">
+                            {{article.title}}
+                        </mat-card-title>
+                        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="align-self-center">
+                            <mat-icon>more_vert</mat-icon>
+                        </button>
+                        <mat-menu #menu="matMenu">
+                            <button mat-menu-item (click)="remove(article)">
+                                <mat-icon>delete_outline</mat-icon>
+                                <span>Remove</span>
+                            </button>
+                        </mat-menu>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <p>
+                            {{article.abstract}}
+                        </p>
+                        <div class="a-setion-date g-mt-50 g-mb-50">
+                            <div class="a-section-name g-fw-500">{{article.section}}</div>
+                            <div class="a-publish-date">{{article.published_date}}</div>
+                        </div>
+                    </mat-card-content>
+                    <mat-card-actions class="g-p-10">
+                        <a [href]="article.url" mat-flat-button color="accent" target="_blank">Read Article</a>
+                    </mat-card-actions>
+                </div>
+            </div>
+        </mat-card>
+    </div>
+</div>

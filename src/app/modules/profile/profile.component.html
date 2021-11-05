@@ -1,0 +1,122 @@
+<ng-container *ngIf="loading">
+
+</ng-container>
+<ng-container *ngIf="!loading">
+    <mat-card>
+        <mat-card-title>
+            {{currentUser.username | titlecase}}
+            <!-- <span>
+                <button mat-icon-button><mat-icon>edit</mat-icon></button>
+            </span> -->
+        </mat-card-title>
+    </mat-card>
+    <div class="g-mt-30">
+        <mat-card>
+            <mat-tab-group mat-align-tabs="start">
+                <!-- ReadLater -->
+                <mat-tab label="Read Later">
+                    <app-read-later></app-read-later>
+                </mat-tab>
+                <!-- ChangePassword -->
+                <mat-tab label="Change Password">
+                    <div class="signup">
+                        <div class="a-grid row g-m-0">
+                            <div class="col-lg-6 col-sm-12 col-xs-12">
+                                <div class="a-signup-col1 d-flex g-flex-column g-align-items-center">
+                                    <h1 class="g-fw-700 a-title g-fs-30 g-blue-clr">Change Password</h1>
+                                    <form [formGroup]="changePasswordForm">
+                                        <mat-form-field appearance="outline" class="g-w-100per g-pb-12">
+                                            <mat-label class="g-gray3-clr">Old Password</mat-label>
+                                            <input [type]="hide ? 'password' : 'text'" matInput formControlName="oldPassword" required />
+                                            <button mat-icon-button class="hide-view-btn" matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                                                [attr.aria-pressed]="hide">
+                                                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                            </button>
+                                            <mat-error *ngIf="changePasswordForm.controls.oldPassword.invalid">
+                                                <span *ngIf="changePasswordForm.controls.password.errors?.pattern">Special characters not allowed</span>&nbsp;
+                                                <span *ngIf="changePasswordForm.controls.password.errors?.required">Password is required field</span>&nbsp;
+                                                <span *ngIf="changePasswordForm.controls.password.errors?.maxlength">Maximum 20 characters allowed</span>&nbsp;
+                                                <span *ngIf="changePasswordForm.controls.password.errors?.minlength">Minimum 10 characters allowed</span>&nbsp;
+                                            </mat-error>
+                                        </mat-form-field>
+                                        <mat-form-field appearance="outline" class="g-w-100per g-pb-12">
+                                            <mat-label class="g-gray3-clr">Password</mat-label>
+                                            <input [type]="hide2 ? 'password' : 'text'" matInput formControlName="password" required />
+                                            <button mat-icon-button class="hide-view-btn" matSuffix (click)="hide2 = !hide2"
+                                                [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide2">
+                                                <mat-icon>{{hide2 ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                            </button>
+                                            <mat-error *ngIf="changePasswordForm.controls.password.invalid">
+                                                <span *ngIf="changePasswordForm.controls.password.errors?.required">Password is required
+                                                    field</span>
+                                                <span *ngIf="changePasswordForm.controls.password.errors?.pattern">Password should have
+                                                    minimum 8 characters, at least one special character and one number</span>
+                                                <span *ngIf="changePasswordForm.controls.password.errors?.passwordSame">Old password and New password should not be same</span>
+                                                
+                                            </mat-error>
+                                        </mat-form-field>
+                                        <mat-form-field appearance="outline" class="g-w-100per g-pb-12">
+                                            <mat-label class="g-gray3-clr">Confirm Password</mat-label>
+                                            <input [type]="hide3 ? 'password' : 'text'" matInput formControlName="confirmPassword"
+                                                required />
+                                            <button mat-icon-button class="hide-view-btn" matSuffix (click)="hide3 = !hide3"
+                                                [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide3">
+                                                <mat-icon>{{hide3 ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                            </button>
+                                            <mat-error *ngIf="changePasswordForm.controls.confirmPassword.invalid">
+                                                <span *ngIf="changePasswordForm.controls.confirmPassword.errors?.required">Confirm Password
+                                                    is required field</span>
+                                                <span *ngIf="changePasswordForm.controls.confirmPassword.errors
+                                              ?.passwordMismatch">Passwords doesn't match</span>
+                                            </mat-error>
+                                        </mat-form-field>
+                                        <button mat-button (click)="changePassword()"
+                                            class="g-w-100per g-fs-16 g-pt-18 g-pb-18 g-pl-125 g-pr-125 a-register-btn">
+                                            <span>Submit</span>&nbsp;
+                                            <span *ngIf="btnloading">
+                                                <mat-icon class="g-vm">
+                                                    <mat-spinner color="accent" diameter="20"></mat-spinner>
+                                                </mat-icon>
+                                            </span>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </mat-tab>
+                <!-- Change User Name -->
+                <mat-tab label="Change user Name">
+                    <div class="a-grid row g-m-0">
+                        <div class="col-lg-6 col-sm-12 col-xs-12">
+                            <div class="a-signup-col1 d-flex g-flex-column g-align-items-center">
+                                <h1 class="g-fw-700 a-title g-fs-30 g-blue-clr">User Name</h1>
+                                <form [formGroup]="changePasswordForm">
+                                    <mat-form-field appearance="outline" class="g-w-100per g-pb-12">
+                                        <mat-label class="g-gray3-clr">UserName</mat-label>
+                                        <input type="text" matInput [formControl]="username" required />
+                                        <mat-error *ngIf="username">
+                                            <span *ngIf="username.errors?.pattern">Name is invalid</span>
+                                            <span *ngIf="username.errors?.required">Name is required field</span>
+                                        </mat-error>
+                                    </mat-form-field>
+
+                                    <button mat-button (click)="changeUsername()"
+                                        class="g-w-100per g-fs-16 g-pt-18 g-pb-18 g-pl-125 g-pr-125 a-register-btn">
+                                        <span>Submit</span>&nbsp;
+                                        <span *ngIf="btnloading">
+                                            <mat-icon class="g-vm">
+                                                <mat-spinner color="accent" diameter="20"></mat-spinner>
+                                            </mat-icon>
+                                        </span>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </mat-tab>
+            </mat-tab-group>
+        </mat-card>
+    </div>  
+</ng-container>
+
