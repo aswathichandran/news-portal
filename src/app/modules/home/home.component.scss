@@ -1,0 +1,15 @@
+.a-home-grid {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  row-gap: 30px;
+  .a-section-list-wrp {
+    background-color: var(--gray2);
+  }
+  .a-thumbnaol-wrp {
+    max-width: 991px;
+    margin: 0px auto !important;
+  }
+  ::ng-deep .mat-card-header-text {
+    margin: 0 !important;
+  }
+}

@@ -1,0 +1,74 @@
+<div class="signup">
+    <div class="a-spinner" *ngIf="loading">
+        <mat-spinner></mat-spinner>
+    </div>
+    <div class="a-grid row g-m-0" *ngIf="!loading">
+        <div class="col-lg-6 col-sm-12 col-xs-12">
+            <div class="a-signup-col1 d-flex g-flex-column  g-align-items-center">
+                <h1 class="g-fw-700 a-title g-fs-30 g-blue-clr">Create account</h1>
+                <form [formGroup]="registerUser">
+                    <mat-form-field appearance="outline" class="g-w-100per g-pb-12">
+                        <mat-label class="g-gray3-clr">Name</mat-label>
+                        <input matInput type="text" formControlName="username" required/>
+                        <mat-error *ngIf="registerUserControl.username.invalid">
+                            <span *ngIf="registerUserControl.username.errors?.pattern">Name is invalid</span>
+                            <span *ngIf="registerUserControl.username.errors?.required">Name is required field</span>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="g-w-100per g-pb-12">
+                        <mat-label class="g-gray3-clr">Email ID</mat-label>
+                        <input matInput type="email" placeholder="pat@example.com" formControlName="email" required />
+                        <mat-error *ngIf="registerUserControl.email.invalid">
+                            <span *ngIf="registerUserControl.email.errors?.email">Email is Invalid</span>
+                            <span *ngIf="registerUserControl.email.errors?.required">Email is requied field</span>
+                            <span *ngIf="registerUserControl.email.touched && registerUserControl.email.errors?.emailAlreadyExist"> Email Already exist </span>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="g-w-100per g-pb-12">
+                        <mat-label class="g-gray3-clr">Password</mat-label>
+                        <input [type]="hide ? 'password' : 'text'" matInput formControlName="password" required autocomplete="off" />
+                        <button mat-icon-button class="hide-view-btn" matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                            [attr.aria-pressed]="hide">
+                            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
+                        <mat-error *ngIf="registerUserControl.password.invalid">
+                            <span *ngIf="registerUserControl.password.errors?.pattern">Special characters not allowed</span>&nbsp;
+                            <span *ngIf="registerUserControl.password.errors?.required">Password is required field</span>&nbsp;
+                            <span *ngIf="registerUserControl.password.errors?.maxlength">Maximum 20 characters allowed</span>&nbsp;
+                            <span *ngIf="registerUserControl.password.errors?.minlength">Minimum 10 characters allowed</span>&nbsp;
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="g-w-100per g-pb-12">
+                        <mat-label class="g-gray3-clr">Confirm Password</mat-label>
+                        <input [type]="hide2 ? 'password' : 'text'" matInput formControlName="confirmPassword" required autocomplete="off" />
+                        <button mat-icon-button class="hide-view-btn" matSuffix (click)="hide2 = !hide2" [attr.aria-label]="'Hide password'"
+                            [attr.aria-pressed]="hide2">
+                            <mat-icon>{{hide2 ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
+                        <mat-error *ngIf="registerUserControl.confirmPassword.invalid">
+                            <span *ngIf="registerUserControl.confirmPassword.errors?.required">Confirm Password is required field</span>
+                            <span *ngIf="registerUserControl.confirmPassword.errors?.passwordMismatch">Confirm Passwords doesn't match</span>
+                        </mat-error>
+                    </mat-form-field>
+                    <button mat-flat-button color="primary" (click)="submit()"
+                        class="g-w-100per g-fs-16 g-pt-18 g-pb-18 g-pl-125 g-pr-125">
+                        <span>Register</span>&nbsp;
+                        <span *ngIf="btnloading">
+                            <mat-icon class="g-vm">
+                                <mat-spinner color="accent" diameter="20"></mat-spinner>
+                            </mat-icon>
+                        </span>
+                    </button>
+                </form>
+                <div class="d-flex g-justify-center g-w-100per g-mt-20">
+                    <p class="g-p-clr g-fs-14">Already have an account?</p>
+                    &nbsp;<a routerLink="/login" class="g-black-clr g-fw-700 g-fs-14">Login here</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-sm-12 col-xs-12 g-pink-bg">
+           <app-right-pane></app-right-pane>
+        </div>
+    </div>
+</div>
+

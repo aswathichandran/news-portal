@@ -1,0 +1,51 @@
+<div class="signup">
+    <div class="a-grid row g-m-0">
+        <div class="col-lg-6 col-sm-12 col-xs-12">
+            <div class="a-signup-col1 d-flex g-flex-column g-align-items-center">
+                <h1 class="g-fw-700 a-title g-fs-30 g-blue-clr">Login</h1>
+                <form [formGroup]="loginForm">
+                    <mat-form-field appearance="outline" class="g-w-100per g-pb-12">
+                        <mat-label class="g-gray3-clr">Email</mat-label>
+                        <input matInput type="email" required formControlName="email" autocomplete="off" required/>
+                        <mat-error *ngIf="loginFormControl.email.invalid">
+                            <span *ngIf="loginFormControl.email.errors?.email">Email is Invalid</span>
+                            <span *ngIf="loginFormControl.email.errors?.required">Email is requied field</span>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="g-w-100per g-pb-12">
+                        <mat-label class="g-gray3-clr">Password</mat-label>
+                        <input [type]="hide ? 'password' : 'text'" matInput formControlName="password" required
+                            autocomplete="off" />
+                        <button mat-icon-button class="hide-view-btn" matSuffix (click)="hide = !hide"
+                            [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
+                        <mat-error *ngIf="loginFormControl.password.invalid">
+                            <span *ngIf="loginFormControl.password.errors?.pattern">Password is invalid</span>
+                            <span *ngIf="loginFormControl.password.errors?.required">Password is required field</span>
+                        </mat-error>
+                    </mat-form-field>
+                    <div>
+                        <a routerLink="/forgot-password" class="g-black-clr g-fw-500 g-fs-12">Forgot Password</a>
+                    </div>
+                    <button mat-flat-button color="primary"  (click)="loginUser()"
+                        class="g-w-100per g-fs-16 g-pt-18 g-pb-18 g-pl-125 g-pr-125 a-register-btn">
+                        <span>Sign In</span>&nbsp;
+                        <span *ngIf="btnloading">
+                            <mat-icon class="g-vm">
+                                <mat-spinner color="accent" diameter="20"></mat-spinner>
+                            </mat-icon>
+                        </span>
+                    </button>
+                </form>
+                <div class="d-flex g-justify-center g-w-100per">
+                    <p class="g-p-clr g-fs-14">Don't have an account?</p>
+                    &nbsp;<a routerLink="/signup" class="g-black-clr g-fw-700 g-fs-14">Register</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-sm-12 col-xs-12">
+            <app-right-pane></app-right-pane>
+        </div>
+    </div>
+</div>
